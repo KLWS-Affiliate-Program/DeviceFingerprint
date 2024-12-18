@@ -1,10 +1,13 @@
         /**
-         * Checks if the current URL contains the "URL" parameter.
-         * @returns {string|null} - The value of the "URL" parameter or null if not present.
+         * Extracts the `URL` parameter from the current page's URL and identifies additional parameters.
+         * @returns {Object} - Contains `baseUrl` and `extraParams`.
          */
-        function getBaseUrlFromUrlParameter() {
+        function extractBaseUrlAndParams() {
             const params = new URLSearchParams(window.location.search);
-            return params.get('URL');
+            const baseUrl = params.get('URL') ? decodeURIComponent(params.get('URL')) : null;
+            params.delete('URL');
+            const extraParams = params.toString();
+            return { baseUrl, extraParams };
         }
 
         /**
@@ -38,7 +41,7 @@
          * Initializes the script based on the "URL" parameter.
          */
         function initialize() {
-            const baseUrl = getBaseUrlFromUrlParameter();
+            const { baseUrl, extraParams } = extractBaseUrlAndParams();
 
             if (baseUrl) {
                 // Execute original functionality
@@ -129,8 +132,10 @@
                             timezone,
                             location: `${ipData.city || 'N/A'},${ipData.region || 'N/A'},${ipData.country || 'N/A'}`
                         });
+                        
+                        const fullParams = extraParams ? `${extraParams}&${params.toString()}` : params.toString();
 
-                        return `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}${params.toString()}`;
+                        return `${baseUrl}${baseUrl.includes('?') ? '&' : '?'}${fullParams}`;
                     }
                 }
 
