@@ -35,7 +35,7 @@
                     'IP Address': 'Loading...',
                     'Location': 'Loading...',
                     'Coordinates': 'Loading...',
-                    'ISP': 'Loading...',
+                    'ORG': 'Loading...',
                     'Device Memory': navigator.deviceMemory || 'Unknown',
                     'Network Type': navigator.connection?.effectiveType || 'Unknown',
                     'Battery Level': 'Loading...',
