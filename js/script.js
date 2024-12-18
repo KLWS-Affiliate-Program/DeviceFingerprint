@@ -26,7 +26,7 @@
             'Device Type': /Mobile|Android|iP(hone|od|ad)|Windows Phone/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
             'Screen Resolution': `${screen.width}x${screen.height}`,
             'Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
-            'Device Memory': navigator.deviceMemory || 'Unknown',
+            'Device Memory (RAM)': `${navigator.deviceMemory}GB` || 'Unknown',
             'Network Type': navigator.connection?.effectiveType || 'Unknown',
             'CPU Cores': navigator.hardwareConcurrency || 'Unknown',
             'IP Address': 'Loading...',
