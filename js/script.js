@@ -72,10 +72,10 @@
 
                 const updatedInfo = {
                     ...info,
-                    'IP Address': ipData.query || 'Unavailable',
-                    'Location': `${ipData.city || 'N/A'}, ${ipData.regionName || 'N/A'}, ${ipData.country || 'N/A'}`,
-                    'Coordinates': `${ipData.lat || 'N/A'}, ${ipData.lon || 'N/A'}`,
-                    'ISP': ipData.isp || 'N/A',
+                    'IP Address': ipData.ip || 'Unavailable',
+                    'Location': `${ipData.city || 'N/A'}, ${ipData.region || 'N/A'}, ${ipData.country || 'N/A'}`,
+                    'Coordinates': `${ipData.loc || 'N/A'}`,
+                    'ORG': ipData.org || 'N/A',
                     'Battery Level': batteryDetails.level || 'N/A',
                     'Charging': batteryDetails.charging || 'N/A',
                 };
@@ -99,7 +99,7 @@
 
         async function fetchIPData(timeout = 5000) {
             try {
-                const response = await fetch("https://ip-api.com/json/?fields=status,message,country,regionName,city,lat,lon,isp,query"); // Replace with your token if required
+                const response = await fetch("https://ipinfo.io/json/?fields=status,country,region,city,ip,org,loc"); // Replace with your token if required
                 return response.ok ? await response.json() : {};
             } catch (error) {
                 console.warn("IP geolocation fetch failed:", error);
