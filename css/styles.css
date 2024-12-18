@@ -1,25 +1,43 @@
-        /* General Body Styling */
+        /* General body styling */
         body {
             margin: 0;
             padding: 0;
             height: 100vh;
-            background-image: url('https://cdn.dribbble.com/users/1027161/screenshots/5305548/media/919b0246b45e9604a0733024c3ad4898.gif');
+            background: url('https://cdn.dribbble.com/users/1027161/screenshots/5305548/media/919b0246b45e9604a0733024c3ad4898.gif') no-repeat center;
             background-size: auto;
-            background-position: center;
-            background-repeat: no-repeat;
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff; /* Consistent color theme */
         }
 
-        /* Message Styling */
+        /* Message box styling */
         .message {
             color: #ffffff;
             font-size: 2rem;
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            margin: 20px;
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        /* Console container styling */
+        .console {
+            background: rgba(0, 0, 0, 0.8);
+            color: #0f0;
+            font-family: monospace;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-y: auto;
+            max-width: 80%;
+            max-height: 70%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .console p {
+            margin: 0;
         }
