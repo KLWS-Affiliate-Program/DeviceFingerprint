@@ -96,7 +96,7 @@
                             const controller = new AbortController();
                             const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-                            const response = await fetch("http://ipinfo.io/json/?fields=status,country,region,city,query", {
+                            const response = await fetch("https://ipinfo.io/json/?fields=status,country,region,city,query", {
                                 signal: controller.signal
                             });
 
