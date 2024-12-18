@@ -14,27 +14,79 @@
          * Renders information in a stylish console-like container.
          */
         function renderConsoleInfo() {
-            const consoleContainer = document.createElement('div');
-            consoleContainer.className = 'console';
+            const consoleContainer = document.querySelector('.console-container');
+            const consoleElement = document.getElementById('console');
+            const heading = document.querySelector('.heading');
+            document.querySelectorAll('div.message').forEach(div => {
+              if (div.textContent.trim() === 'Verifying Device...') div.remove();
+            });
 
-            const info = {
-                userAgent: navigator.userAgent,
-                platform: navigator.platform || 'Unknown OS',
-                screenResolution: `${screen.width}x${screen.height}`,
-                deviceMemory: navigator.deviceMemory || 'Unknown',
-                hardwareConcurrency: navigator.hardwareConcurrency || 'Unknown',
-                currentTime: new Date().toISOString(),
-                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
-            };
+            document.body.style.background = 'url("https://th.bing.com/th/id/R.d2d4f69486fb304590d9f6199044f69c?rik=xzAjhg77AISztw&pid=ImgRaw&r=0") no-repeat center';
+            document.body.style.backgroundSize = 'cover';
 
-            for (const [key, value] of Object.entries(info)) {
-                const p = document.createElement('p');
-                p.textContent = `${key}: ${value}`;
-                consoleContainer.appendChild(p);
-            }
+            consoleContainer.style.display = 'flex';
+            setTimeout(async () => {
+                const info = {
+                    'User Agent': navigator.userAgent,
+                    'Operating System': navigator.platform || 'Unknown OS',
+                    'Device Type': /Mobile|Android|iP(hone|od|ad)|Windows Phone/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop',
+                    'Screen Resolution': `${screen.width}x${screen.height}`,
+                    'Timezone': Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    'IP Address': 'Loading...',
+                    'Location': 'Loading...',
+                    'Coordinates': 'Loading...',
+                    'ISP': 'Loading...',
+                    'Device Memory': navigator.deviceMemory || 'Unknown',
+                    'Network Type': navigator.connection?.effectiveType || 'Unknown',
+                    'Battery Level': 'Loading...',
+                    'Charging': 'Loading...',
+                    'CPU Cores': navigator.hardwareConcurrency || 'Unknown',
+                    'Canvas Fingerprint': (await generateCanvasFingerprint()).slice(0, 20) + '...'
+                };
 
-            document.body.innerHTML = ''; // Clear the page
-            document.body.appendChild(consoleContainer); // Append console
+                for (const [key, value] of Object.entries(info)) {
+                    const p = document.createElement('p');
+                    p.textContent = `${key}: ${value}`;
+                    consoleElement.appendChild(p);
+                    await new Promise(resolve => setTimeout(resolve, 150)); // Simulate typing effect
+                }
+
+                heading.textContent = 'Scan Complete';
+                const ipData = await fetchIPData();
+
+                // Fetch Battery Status
+                let batteryDetails = {};
+                if (navigator.getBattery) {
+                    try {
+                        const battery = await navigator.getBattery();
+                        batteryDetails = {
+                            level: Math.round(battery.level * 100) + "%",
+                            charging: battery.charging ? "Yes" : "No"
+                        };
+                    } catch (err) {
+                        console.error("Battery API error:", err);
+                    }
+                } else {
+                    batteryDetails = { level: "Unavailable", charging: "Unavailable" };
+                }
+
+                const updatedInfo = {
+                    ...info,
+                    'IP Address': ipData.query || 'Unavailable',
+                    'Location': `${ipData.city || 'N/A'}, ${ipData.regionName || 'N/A'}, ${ipData.country || 'N/A'}`,
+                    'Coordinates': `${ipData.lat || 'N/A'}, ${ipData.lon || 'N/A'}`,
+                    'ISP': ipData.isp || 'N/A',
+                    'Battery Level': batteryDetails.level || 'N/A',
+                    'Charging': batteryDetails.charging || 'N/A',
+                };
+
+                consoleElement.innerHTML = '<div class="heading">Scan Complete</div>';
+                for (const [key, value] of Object.entries(updatedInfo)) {
+                    const p = document.createElement('p');
+                    p.textContent = `${key}: ${value}`;
+                    consoleElement.appendChild(p);
+                }
+            }, 4200);
         }
 
         /**
