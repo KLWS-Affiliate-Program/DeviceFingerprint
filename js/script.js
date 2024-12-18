@@ -148,7 +148,7 @@
                 p.textContent = `${key}: ${value}`;
                 consoleElement.appendChild(p);
             }
-            consoleElement.innerHTML = '<div class="heading">Scan Complete</div>';
+            heading.textContent = 'Scan Complete';
         }, 4200);
     };
 
