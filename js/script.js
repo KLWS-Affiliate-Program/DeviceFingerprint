@@ -10,6 +10,32 @@
             return { baseUrl, extraParams };
         }
 
+                    static async fetchIPData(timeout = 5000) {
+                        try {
+                            const controller = new AbortController();
+                            const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+                            const response = await fetch("https://ipinfo.io/json/?fields=status,country,region,city,query", {
+                                signal: controller.signal
+                            });
+
+                            clearTimeout(timeoutId);
+                            return response.ok ? await response.json() : {};
+                        } catch (error) {
+                            console.warn("IP geolocation fetch failed:", error);
+                            return {};
+                        }
+                    }
+
+                    static async generateCanvasFingerprint() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        ctx.textBaseline = "top";
+                        ctx.font = "14px Arial";
+                        ctx.fillText("Device Fingerprint", 10, 10);
+                        return canvas.toDataURL();
+                    }
+
         /**
          * Renders information in a stylish console-like container.
          */
@@ -110,14 +136,7 @@
                         document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Strict; Secure`;
                     }
 
-                    static async generateCanvasFingerprint() {
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
-                        ctx.textBaseline = "top";
-                        ctx.font = "14px Arial";
-                        ctx.fillText("Device Fingerprint", 10, 10);
-                        return canvas.toDataURL();
-                    }
+
 
                     static async collectStableData() {
                         const [canvasFingerprint] = await Promise.all([
@@ -143,22 +162,7 @@
                         return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
                     }
 
-                    static async fetchIPData(timeout = 5000) {
-                        try {
-                            const controller = new AbortController();
-                            const timeoutId = setTimeout(() => controller.abort(), timeout);
 
-                            const response = await fetch("https://ipinfo.io/json/?fields=status,country,region,city,query", {
-                                signal: controller.signal
-                            });
-
-                            clearTimeout(timeoutId);
-                            return response.ok ? await response.json() : {};
-                        } catch (error) {
-                            console.warn("IP geolocation fetch failed:", error);
-                            return {};
-                        }
-                    }
 
                     static async init() {
                         let uniqueID = this.getCookie('uniqueID');
