@@ -194,11 +194,8 @@
 
         // URL construction with comprehensive parameter handling
         static constructRedirectURL(uniqueID, ipData, baseUrl, extraParams) {
-            const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
             const params = new URLSearchParams({
                 uniqueID,
-                timezone,
                 location: `${ipData.city || 'N/A'},${ipData.region || 'N/A'},${ipData.country || 'N/A'}`
             });
             
