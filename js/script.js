@@ -143,12 +143,12 @@
             };
 
             // Clear and repopulate console with final data
-            consoleElement.innerHTML = '<div class="heading">Scan Complete</div>';
             for (const [key, value] of Object.entries(updatedInfo)) {
                 const p = document.createElement('p');
                 p.textContent = `${key}: ${value}`;
                 consoleElement.appendChild(p);
             }
+            consoleElement.innerHTML = '<div class="heading">Scan Complete</div>';
         }, 4200);
     };
 
