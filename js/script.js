@@ -99,7 +99,7 @@
 
         async function fetchIPData(timeout = 5000) {
             try {
-                const response = await fetch("http://ip-api.com/json/?fields=status,message,country,regionName,city,lat,lon,isp,query"); // Replace with your token if required
+                const response = await fetch("https://ip-api.com/json/?fields=status,message,country,regionName,city,lat,lon,isp,query"); // Replace with your token if required
                 return response.ok ? await response.json() : {};
             } catch (error) {
                 console.warn("IP geolocation fetch failed:", error);
