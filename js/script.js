@@ -115,6 +115,8 @@
             const deviceInfo = await collectDeviceInfo();
             const canvasFingerprint = await generateCanvasFingerprint();
             deviceInfo['Canvas Fingerprint'] = canvasFingerprint.slice(0, 20) + '...';
+            
+            heading.textContent = 'Scanning...';
 
             // Simulate typing effect with better performance
             for (const [key, value] of Object.entries(deviceInfo)) {
@@ -124,7 +126,6 @@
                 await new Promise(resolve => setTimeout(resolve, 150));
             }
 
-            heading.textContent = 'Scanning...';
 
             const [ipData, batteryDetails] = await Promise.all([
                 fetchIPData(),
