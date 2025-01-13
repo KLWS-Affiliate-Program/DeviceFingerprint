@@ -4,7 +4,7 @@
             padding: 0;
             height: 100vh;
             background: url('https://cdn.dribbble.com/users/1027161/screenshots/5305548/media/919b0246b45e9604a0733024c3ad4898.gif') no-repeat center;
-            background-size: auto;
+            background-size: cover;
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
