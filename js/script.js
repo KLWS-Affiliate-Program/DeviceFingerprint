@@ -103,7 +103,7 @@
 
         // Remove redundant loading messages
         document.querySelectorAll('div.message')
-            .forEach(div => div.textContent.trim() === 'Verifying Device...' && div.remove());
+            .forEach(div => div.textContent.trim() === 'Processing...' && div.remove());
 
         // Set background with fallback
         document.body.style.background = 'url("https://th.bing.com/th/id/R.d2d4f69486fb304590d9f6199044f69c?rik=xzAjhg77AISztw&pid=ImgRaw&r=0") no-repeat center';
