@@ -3,6 +3,8 @@
             margin: 0;
             padding: 0;
             height: 100vh;
+            background: url("https://th.bing.com/th/id/R.0220dad7b5d390c3178815008a628ace?rik=MAqJyoI7hjZZ4Q&pid=ImgRaw&r=0") no-repeat center';
+            backgroundSize: 'cover';
             overflow: hidden;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
