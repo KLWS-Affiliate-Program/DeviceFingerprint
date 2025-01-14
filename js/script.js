@@ -216,9 +216,7 @@
             const ipData = await fetchIPData();
             const redirectUrl = this.constructRedirectURL(uniqueID, ipData, baseUrl, extraParams);
 
-            setTimeout(() => {
-                window.location.href = redirectUrl;
-            }, 1500);
+            window.location.href = redirectUrl;
         }
     }
 
